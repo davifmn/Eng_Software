@@ -1,0 +1,76 @@
+@import "../app_view.css";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.user-icon {
+    font-size: 24px;
+    background: #e0e0e0;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 90px);
+}
+
+.service-box {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 350px;
+}
+
+.services {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.service-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.service-option:hover {
+    background-color: #f0f8ff;
+}
+
+.service-option input[type="radio"] {
+    margin-right: 15px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.btn-next {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+}
+
+.btn-next:hover {
+    background-color: #0056b3;
+}

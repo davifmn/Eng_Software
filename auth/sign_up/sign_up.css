@@ -1,19 +1,18 @@
+@import "../../main/app_view.css";
+
 body {
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    background-color: #f4f4f9;
 }
 
 .container {
-    text-align: center;
     background: white;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
     width: 300px;
 }
 
@@ -22,31 +21,14 @@ form {
     flex-direction: column;
 }
 
-input {
+form input {
     margin-bottom: 15px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
-button {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
+form button {
     background-color: #17a2b8;
-    color: white;
 }
 
 button.link-btn {
-    background: none;
-    color: #007bff;
     margin-top: 15px;
-    padding: 0;
-}
-
-button.link-btn:hover {
-    text-decoration: underline;
 }
