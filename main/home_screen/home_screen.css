@@ -36,6 +36,8 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
     width: 350px;
+    height: 400px;
+    overflow-y: auto;
 }
 
 .services {
@@ -63,6 +65,22 @@
     margin-right: 15px;
     transform: scale(1.2);
     cursor: pointer;
+}
+
+.btn-next-large {
+    width: 720px;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-next-large:hover {
+    background-color: #0056b3;
 }
 
 .btn-next {

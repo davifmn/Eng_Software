@@ -1,0 +1,28 @@
+{
+  "name": "eng_software",
+  "version": "1.0.0",
+  "description": "* **Davi Fraga** - Fullstack Developer & Integrador de IA, Backend Developer * Nadezhda Tarubarova - Frontend Developer, Product Owner & QA (Revisão de Código IA)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davifmn/Eng_Software.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davifmn/Eng_Software/issues"
+  },
+  "homepage": "https://github.com/davifmn/Eng_Software#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.5.0"
+  }
+}

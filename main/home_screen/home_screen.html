@@ -13,33 +13,41 @@
     </header>
 
     <main class="main-container">
-        <div class="service-box">
-            <h3>Choose Service</h3>
-            
-            <div class="services">
-                <label class="service-option">
-                    <input type="radio" name="service" value="Corte de Cabelo">
-                    <span>Corte de Cabelo</span>
-                </label>
-                
-                <label class="service-option">
-                    <input type="radio" name="service" value="Barba">
-                    <span>Barba</span>
-                </label>
-                
-                <label class="service-option">
-                    <input type="radio" name="service" value="Cabelo e Barba">
-                    <span>Cabelo e Barba</span>
-                </label>
-                
-                <label class="service-option">
-                    <input type="radio" name="service" value="Sobrancelha">
-                    <span>Sobrancelha</span>
-                </label>
+        <div class="cards-wrapper">
+            <!-- Card 1: Serviçõs -->
+            <div class="service-box">
+                <h3>Choose Service</h3>
+                <div class="services">
+                    <label class="service-option">
+                        <input type="radio" name="service" value="Corte de Cabelo">
+                        <span>Corte de Cabelo</span>
+                    </label>
+                    <label class="service-option">
+                        <input type="radio" name="service" value="Barba">
+                        <span>Barba</span>
+                    </label>
+                    <label class="service-option">
+                        <input type="radio" name="service" value="Cabelo e Barba">
+                        <span>Cabelo e Barba</span>
+                    </label>
+                    <label class="service-option">
+                        <input type="radio" name="service" value="Sobrancelha">
+                        <span>Sobrancelha</span>
+                    </label>
+                </div>
             </div>
 
-            <button id="btnNext" class="btn-next">Next</button>
+            <!-- Card 2: Profissionais -->
+            <div class="service-box">
+                <h3>Choose Worker</h3>
+                <div class="services" id="workerList">
+                    <p>Carregando especialistas...</p>
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
         </div>
+        
+        <button id="btnNext" class="btn-next-large">Next</button>
     </main>
 
     <script src="home.js"></script>
