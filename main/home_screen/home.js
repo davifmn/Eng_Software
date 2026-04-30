@@ -41,11 +41,12 @@ async function loadWorkers() {
 
 // Botão NEXT
 document.getElementById('btnNext').addEventListener('click', () => {
-    const selectedService = document.querySelector('input[name="service"]:checked');
+    // Pega TODOS os serviços marcados
+    const selectedServiceCheckboxes = document.querySelectorAll('input[name="service"]:checked');
     const selectedWorker = document.querySelector('input[name="worker"]:checked');
     
-    if (!selectedService) {
-        alert('Por favor, selecione um serviço.');
+    if (selectedServiceCheckboxes.length === 0) {
+        alert('Por favor, selecione pelo menos um serviço.');
         return;
     }
 
@@ -54,9 +55,12 @@ document.getElementById('btnNext').addEventListener('click', () => {
         return;
     }
 
+    const selectedServices = Array.from(selectedServiceCheckboxes).map(cb => cb.value);
+
     // Salva as escolhas para usar na tela do quadro de horários
-    localStorage.setItem('selectedService', selectedService.value);
-    localStorage.setItem('selectedWorkerId', selectedWorker.value); // "any" ou ID real
+    localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+    localStorage.setItem('selectedServicesCount', selectedServices.length);
+    localStorage.setItem('selectedWorkerId', selectedWorker.value);
 
     window.location.href = '../appointment/appointment.html';
 });

@@ -4,7 +4,15 @@ const board = new Board();
 const container = document.getElementById('boardContainer');
 const btnConfirm = document.getElementById('btnConfirm');
 
-let selectedSlot = null; // { day, time, element }
+// Pega a quantidade de horários necessários baseada nos serviços que vieram da Home
+const maxSlots = parseInt(localStorage.getItem('selectedServicesCount')) || 1;
+let selectedSlots = []; // Array of { day, time, element }
+
+// Atualiza o título do header para avisar ao usuário quantos horários ele precisa escolher
+const headerTitle = document.querySelector('.header h2');
+if (headerTitle) {
+    headerTitle.innerText = `Selecione ${maxSlots} horário(s)`;
+}
 
 // Botão de voltar
 document.getElementById('btnBack').addEventListener('click', () => {
@@ -53,21 +61,35 @@ function renderBoard() {
 }
 
 function selectSlot(element, day, hour) {
-    if (selectedSlot) {
-        selectedSlot.element.classList.remove('selected');
-        selectedSlot.element.innerText = 'Livre';
+    // Verifica se o slot clicado já está selecionado
+    const index = selectedSlots.findIndex(slot => slot.day === day && slot.time === hour);
+
+    if (index > -1) {
+        // Se já estava selecionado, desmarca
+        selectedSlots[index].element.classList.remove('selected');
+        selectedSlots[index].element.innerText = 'Livre';
+        selectedSlots.splice(index, 1);
+    } else {
+        // Se não estava selecionado, verifica o limite máximo e marca
+        if (selectedSlots.length >= maxSlots) {
+            alert(`Você deve selecionar exatamente ${maxSlots} horário(s) para os serviços escolhidos.`);
+            return;
+        }
+        selectedSlots.push({ day, time: hour, element });
+        element.classList.add('selected');
+        element.innerText = 'Selecionado';
     }
 
-    selectedSlot = { day, time: hour, element };
-    element.classList.add('selected');
-    element.innerText = 'Selecionado';
-    btnConfirm.disabled = false;
+    // Libera o botão APENAS se a quantidade de slots marcados for igual ao que foi pedido
+    btnConfirm.disabled = selectedSlots.length !== maxSlots;
 }
 
 btnConfirm.addEventListener('click', () => {
-    if (selectedSlot) {
-        alert(`Agendamento confirmado para ${selectedSlot.day} às ${selectedSlot.time}`);
-        // Futuro: Salvar via classes e Banco de Dados
+    if (selectedSlots.length === maxSlots) {
+        // Salva os horários no localStorage para usar na tela de confirmação
+        localStorage.setItem('finalSlots', JSON.stringify(selectedSlots));
+        // Redireciona para a tela de confirmação
+        window.location.href = '../confirm_screen/confirm.html';
     }
 });
 

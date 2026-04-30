@@ -18,6 +18,7 @@ router.post('/register', async (req, res) => {
 
         res.status(201).json({ message: 'Usuário cadastrado com sucesso!', user: newUser });
     } catch (error) {
+        console.error('ERRO REAL DO BANCO:', error); // Isso vai imprimir o erro exato no terminal
         res.status(500).json({ error: 'Erro ao cadastrar usuário' });
     }
 });

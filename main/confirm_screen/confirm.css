@@ -1,0 +1,71 @@
+@import "../app_view.css";
+
+.confirm-card {
+    width: 400px;
+    text-align: left;
+}
+
+.confirm-card h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.summary-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+}
+
+.summary-box p {
+    margin: 8px 0;
+}
+
+.pix-area {
+    text-align: center;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+}
+
+.pix-area code {
+    display: inline-block;
+    background: #e0e0e0;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.btn-copy {
+    background-color: #6c757d;
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.btn-copy:hover {
+    background-color: #5a6268;
+}
+
+.btn-confirm-final {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #28a745;
+}
+
+.btn-confirm-final:hover {
+    background-color: #218838;
+}
+
+.btn-cancel {
+    width: 100%;
+    background-color: #dc3545;
+}
+
+.btn-cancel:hover {
+    background-color: #c82333;
+}
