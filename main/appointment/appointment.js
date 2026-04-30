@@ -1,14 +1,14 @@
-import { Board } from '../../packages/board.js';
-
-const board = new Board();
 const container = document.getElementById('boardContainer');
 const btnConfirm = document.getElementById('btnConfirm');
 
-// Pega a quantidade de horários necessários baseada nos serviços que vieram da Home
+// Pega dados do LocalStorage
 const maxSlots = parseInt(localStorage.getItem('selectedServicesCount')) || 1;
-let selectedSlots = []; // Array of { day, time, element }
+const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+const selectedWorkerId = localStorage.getItem('selectedWorkerId') || 'any';
 
-// Atualiza o título do header para avisar ao usuário quantos horários ele precisa escolher
+let selectedSlots = []; 
+let serverBoard = null; // Variável para armazenar o board que virá do servidor
+
 const headerTitle = document.querySelector('.header h2');
 if (headerTitle) {
     headerTitle.innerText = `Selecione ${maxSlots} horário(s)`;
@@ -19,34 +19,48 @@ document.getElementById('btnBack').addEventListener('click', () => {
     window.location.href = '../home_screen/home_screen.html';
 });
 
+// Busca os horários reais no banco de dados
+async function fetchBoard() {
+    try {
+        const response = await fetch('http://localhost:3000/api/workers/board', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ workerId: selectedWorkerId, services: selectedServices })
+        });
+        
+        if (!response.ok) throw new Error('Erro ao buscar o quadro');
+        
+        serverBoard = await response.json();
+        renderBoard(); // Renderiza somente DEPOIS de receber os dados
+    } catch (error) {
+        container.innerHTML = '<p style="color:red;">Não foi possível carregar os horários. Volte e tente novamente.</p>';
+    }
+}
+
 // Renderizar o quadro
 function renderBoard() {
+    if (!serverBoard) return;
     container.innerHTML = '';
 
-    // Canto superior esquerdo vazio
     const emptyCorner = document.createElement('div');
     emptyCorner.className = 'cell header-cell';
     container.appendChild(emptyCorner);
 
-    // Cabeçalho dos dias
-    board.days.forEach(day => {
+    serverBoard.days.forEach(day => {
         const div = document.createElement('div');
         div.className = 'cell header-cell';
         div.innerText = day;
         container.appendChild(div);
     });
 
-    // Linhas de horas
-    board.hours.forEach(hour => {
-        // Coluna da hora
+    serverBoard.hours.forEach(hour => {
         const timeDiv = document.createElement('div');
         timeDiv.className = 'cell time-cell';
         timeDiv.innerText = hour;
         container.appendChild(timeDiv);
 
-        // Slots dos dias para esta hora
-        board.days.forEach(day => {
-            const status = board.schedule[day][hour];
+        serverBoard.days.forEach(day => {
+            const status = serverBoard.schedule[day][hour];
             const slot = document.createElement('div');
             slot.className = `cell slot ${status}`;
             slot.innerText = status === 'free' ? 'Livre' : 'Ocupado';
@@ -61,16 +75,13 @@ function renderBoard() {
 }
 
 function selectSlot(element, day, hour) {
-    // Verifica se o slot clicado já está selecionado
     const index = selectedSlots.findIndex(slot => slot.day === day && slot.time === hour);
 
     if (index > -1) {
-        // Se já estava selecionado, desmarca
         selectedSlots[index].element.classList.remove('selected');
         selectedSlots[index].element.innerText = 'Livre';
         selectedSlots.splice(index, 1);
     } else {
-        // Se não estava selecionado, verifica o limite máximo e marca
         if (selectedSlots.length >= maxSlots) {
             alert(`Você deve selecionar exatamente ${maxSlots} horário(s) para os serviços escolhidos.`);
             return;
@@ -80,17 +91,15 @@ function selectSlot(element, day, hour) {
         element.innerText = 'Selecionado';
     }
 
-    // Libera o botão APENAS se a quantidade de slots marcados for igual ao que foi pedido
     btnConfirm.disabled = selectedSlots.length !== maxSlots;
 }
 
 btnConfirm.addEventListener('click', () => {
     if (selectedSlots.length === maxSlots) {
-        // Salva os horários no localStorage para usar na tela de confirmação
         localStorage.setItem('finalSlots', JSON.stringify(selectedSlots));
-        // Redireciona para a tela de confirmação
         window.location.href = '../confirm_screen/confirm.html';
     }
 });
 
-renderBoard();
+// Inicia buscando o board do servidor em vez de tentar renderizar o vazio
+fetchBoard();

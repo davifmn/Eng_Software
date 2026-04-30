@@ -92,3 +92,24 @@
 .btn-next:hover {
     background-color: #0056b3;
 }
+
+.service-option.compatible {
+    border: 2px solid #28a745;
+    background-color: #f0fff4;
+}
+
+.compatible-badge {
+    color: #28a745;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: auto;
+    display: none;
+}
+
+.service-option.compatible .compatible-badge {
+    display: block;
+}
+
+.incompatible {
+    opacity: 0.5;
+}

@@ -5,7 +5,8 @@ import { Board } from './packages/board.js';
 
 dotenv.config();
 
-const specialitiesList = ['Corte de Cabelo', 'Barba', 'Cabelo e Barba', 'Sobrancelha'];
+
+const specialitiesList = ['Corte de Cabelo', 'Barba', 'Sobrancelha'];
 const names = ['André', 'Bruno', 'Carlos', 'Daniel', 'Eduardo', 'Fábio', 'Gabriel', 'Henrique', 'Igor', 'João', 'Lucas', 'Marcos', 'Nicolas', 'Otávio', 'Pedro'];
 
 async function seedDatabase() {
